@@ -1,31 +1,38 @@
 package br.eti.gabrieljuliobs.contatos.domain;
 
-import javax.persistence.*;
-import java.util.HashSet;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "Obrigatório")
+    @Size(min = 3, max = 50)
     private String nome;
 
-    @ElementCollection
-    @CollectionTable(name = "telefone")
-    private Set<String> telefones = new HashSet<>();
-
+    @NotEmpty(message = "Obrigatório")
+    @Email
     private String email;
+
+    private String telefone;
 
     public Contato() {
     }
 
-    public Contato(Integer id, String nome, Set<String> telefones, String email) {
+    public Contato(Integer id, String nome, String email, String telefone) {
         this.id = id;
         this.nome = nome;
-        this.telefones = telefones;
         this.email = email;
+        this.telefone = telefone;
     }
 
     public Integer getId() {
@@ -44,20 +51,20 @@ public class Contato {
         this.nome = nome;
     }
 
-    public Set<String> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(Set<String> telefones) {
-        this.telefones = telefones;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     @Override

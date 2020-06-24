@@ -4,7 +4,6 @@ import br.eti.gabrieljuliobs.contatos.domain.Contato;
 import br.eti.gabrieljuliobs.contatos.repositories.ContatoRepository;
 import br.eti.gabrieljuliobs.contatos.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +32,7 @@ public class ContatoService {
 
     public void delete(Integer id) {
         buscar(id);
+        contatoRepository.deleteById(id);
     }
 
     public List<Contato> findAll() {
